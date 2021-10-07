@@ -7,6 +7,7 @@ state("Indy3d")
     int isMenuOpen : 0x00014204, 0x0;
     int isGameOpen : 0x0001F1F0, 0x8;
     int isLoading : 0x00013224, 0x0;
+    int credits : 0x000415CC, 0x22C;
 }
 
 start
@@ -27,13 +28,16 @@ split
     if(current.missionNumber > old.missionNumber){
         return true; 
     }
+    if(current.missionNumber == 17 && current.credits == 26){
+        return true;
+    }
 }
 
 isLoading
 {
 
-    //Pause during load screens
-    if(current.isLoading == 1){
+    //Pause during load screens and Windows-like menus
+    if(current.isLoading == 1 || current.isGameOpen == 0){
         return true;
     }
     else{
