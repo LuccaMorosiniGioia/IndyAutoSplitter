@@ -4,7 +4,7 @@
     <CheatEntry>
       <ID>0</ID>
       <Description>"MissionNumber"</Description>
-      <LastState Value="3" RealAddress="005552E8"/>
+      <LastState Value="17" RealAddress="005552E8"/>
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>4 Bytes</VariableType>
       <Address>"Indy3D.exe" +0139C0</Address>
@@ -59,7 +59,7 @@
     <CheatEntry>
       <ID>5</ID>
       <Description>"coordsX"</Description>
-      <LastState Value="4.699882984" RealAddress="017FE594"/>
+      <LastState Value="-1.505675077" RealAddress="017FE594"/>
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>Float</VariableType>
       <Address>"Indy3D.exe" + 032304</Address>
@@ -70,12 +70,22 @@
     <CheatEntry>
       <ID>6</ID>
       <Description>"coordsY"</Description>
-      <LastState Value="13.62103176" RealAddress="017FE598"/>
+      <LastState Value="-8.509480476" RealAddress="017FE598"/>
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>Float</VariableType>
       <Address>"Indy3D.exe" + 032304</Address>
       <Offsets>
         <Offset>91C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"credits"</Description>
+      <LastState Value="0" RealAddress="005647CC"/>
+      <VariableType>2 Bytes</VariableType>
+      <Address>"Indy3D.exe"+000415CC</Address>
+      <Offsets>
+        <Offset>22C</Offset>
       </Offsets>
     </CheatEntry>
   </CheatEntries>
