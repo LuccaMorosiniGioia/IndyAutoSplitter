@@ -1,5 +1,4 @@
-state("Indy3d")
-{
+state("Indy3d") {
     int missionNumber : 0x0139C0, 0x168;
     float coordsX : 0x032304, 0x918;
     float coordsY : 0x032304, 0x91C;
@@ -11,64 +10,78 @@ state("Indy3d")
     int treasureCounter : 0x00016A94, 0x4;
 }
 
-start
-{   
-    //Coords for the begin of Canyon
-    /*if(current.missionNumber == 1 && current.posX <= -0.72 && current.posY >= 1.41){
+startup {
+	settings.Add("all_treasures", false, "All Treasures splitting");
+	settings.SetToolTip("all_treasures", "Enabling this option will split on every treasure pick-up.");
+}
+
+start {   
+    // Start when the game switches to level 1 AND when the starting cutscene starts
+	// (prevents early start of the timer for RTA after you click the Start New Game button but before
+	//  the level starts playing)
+    if (current.missionNumber == 1 && current.cutscene > old.cutscene) {
+        return true;
+    }
+	
+	//Coords for the begin of Canyon
+    /*if (current.missionNumber == 1 && current.posX <= -0.72 && current.posY >= 1.41) {
         return true;
     }*/
-    
-    if(current.missionNumber == 1 && current.isLoading > old.isLoading){
-        return true;
-    }
 }
 
-split
-{   
-
+split {   
     //Split by level
-    print("current level is " + current.missionNumber);
-    if(current.missionNumber > old.missionNumber){
+    if (current.missionNumber > old.missionNumber) {
         return true; 
     }
-
-    //Split by treasure
-    //Comment this for a any% run
-    if(current.treasureCounter > old.treasureCounter){
+	
+	//Split by treasure
+    if (settings["all_treasures"] && current.treasureCounter > old.treasureCounter){
         return true;
     }
-
-    // Last split on the end of peru
-    if(current.missionNumber == 17 && current.credits == 26){
+	
+	// Last split at the end of Peru
+    if (current.missionNumber == 17 && current.credits != 0) {
         return true;
     }
 }
 
-isLoading
-{
+isLoading {
 
     //Pause during load screens and Windows-like menus
-    if(current.isLoading == 1 || current.isGameOpen == 0){
+	//Preferred setting by the_kovic
+    if (current.isLoading == 1 || current.isGameOpen == 0) {
         return true;
     }
-    else{
+    else {
         return false;
     }
 
-    //Pause during cutscenes and load screens
-    /*if(current.cutscene == 1 || current.isLoading == 1){
+	// ---------------
+	// ALTERNATIVES
+	// ---------------
+	
+	//Pause during load screens
+    /*if (current.isLoading == 1) {
         return true;
     }
-    else{
+    else {
+        return false;
+    }*/
+
+    //Pause during cutscenes and load screens
+    /*if (current.cutscene == 1 || current.isLoading == 1) {
+        return true;
+    }
+    else {
         return false;
     }*/
 
     //Pause when Menu is Open
-    /*if(current.isLoading == 1 || current.isMenuOpen == 1){
+    /*if (current.isLoading == 1 || current.isMenuOpen == 1) {
         return true;
     }
-    else{
+    else {
         return false;
     }*/
-
 }
