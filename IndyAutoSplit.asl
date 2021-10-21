@@ -8,6 +8,7 @@ state("Indy3d")
     int isGameOpen : 0x0001F1F0, 0x8;
     int isLoading : 0x00013224, 0x0;
     int credits : 0x000415CC, 0x22C;
+    int treasureCounter : 0x00016A94, 0x4;
 }
 
 start
@@ -17,17 +18,27 @@ start
         return true;
     }*/
     
-    if(current.missionNumber == 1){
+    if(current.missionNumber == 1 && current.isLoading > old.isLoading){
         return true;
     }
 }
 
 split
 {   
+
+    //Split by level
     print("current level is " + current.missionNumber);
     if(current.missionNumber > old.missionNumber){
         return true; 
     }
+
+    //Split by treasure
+    //Comment this for a any% run
+    if(current.treasureCounter > old.treasureCounter){
+        return true;
+    }
+
+    // Last split on the end of peru
     if(current.missionNumber == 17 && current.credits == 26){
         return true;
     }
